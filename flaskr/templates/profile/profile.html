@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Profile{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div>
+      <h2>Hello, {{ g.user['username']}}</h2>
+      <p>Bio: 
+        {% if g.user['bio'] %}
+          {{ g.user['bio'] }}
+        {% endif %}
+      </p>
+      <a href="{{ url_for('profile.edit')}}">Edit</a>
+    </div>
+{% endblock %}
