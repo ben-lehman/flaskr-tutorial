@@ -6,12 +6,14 @@
 
 {% block content %}
     <div>
-      <h2>Hello, {{ g.user['username']}}</h2>
+      <h2>Hello, {{ user['username']}}</h2>
       <p>Bio: 
-        {% if g.user['bio'] %}
-          {{ g.user['bio'] }}
+        {% if user['bio'] %}
+          {{ user['bio'] }}
         {% endif %}
       </p>
-      <a href="{{ url_for('profile.edit')}}">Edit</a>
+      {% if g.user['id'] == user['id'] %}
+        <a href="{{ url_for('profile.edit')}}">Edit</a>
+      {% endif %}
     </div>
 {% endblock %}

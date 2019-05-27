@@ -8,10 +8,14 @@ from flaskr.db import get_db
 
 bp = Blueprint('profile', __name__, url_prefix='/profile')
 
-@bp.route('/', methods=('GET',))
-@login_required
-def profile():
-    return render_template('profile/profile.html')
+@bp.route('/<int:id>')
+def profile(id):
+    db = get_db()
+    user = db.execute(
+        'SELECT username, bio, id FROM user WHERE id = ?',
+        (id,)
+    ).fetchone()
+    return render_template('profile/profile.html', user=user)
 
 
 @bp.route('/edit', methods=('GET', 'POST'))
@@ -28,6 +32,6 @@ def edit():
             (bio, user_id)
         )
         db.commit()
-        return redirect(url_for('profile.profile'))
+        return redirect(url_for('profile.profile', id=user_id))
 
     return render_template('profile/edit.html')
