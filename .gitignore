@@ -1,3 +1,6 @@
 instance/
 flaskr/__pycach__
 venv/
+htmlcov/
+flaskr.egg-info/
+.coverage
